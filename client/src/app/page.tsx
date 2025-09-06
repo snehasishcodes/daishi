@@ -19,9 +19,7 @@ export default function App() {
   const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
-    // const socket = new WebSocket(process.env.NODE_ENV === "development" ? "ws://localhost:8080" : "wss://daishiws.snehasish.xyz");
-
-    const socket = new WebSocket("ws://localhost:8080");
+    const socket = new WebSocket(process.env.NODE_ENV === "development" ? "ws://localhost:8080" : "wss://daishiws.snehasish.xyz");
     socket.onopen = () => console.log("[NWS] Connected to WS");
     socket.onmessage = (e) => console.log("[NWS] Received Message from Server:", e.data);
     socket.onclose = () => console.log("[NWS] Disconnected from WS");
