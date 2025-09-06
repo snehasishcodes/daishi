@@ -19,11 +19,13 @@ export default function App() {
   const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
-    const socket = new WebSocket(process.env.NODE_ENV === "development" ? "ws://localhost:8080" : "wss://daishiws.snehasish.xyz");
-    socket.onopen = () => console.log("[NWS] Connected to WS");
+    // const socket = new WebSocket(process.env.NODE_ENV === "development" ? "ws://localhost:8080" : "wss://daishiws.snehasish.xyz");
 
+    const socket = new WebSocket("ws://localhost:8080");
+    socket.onopen = () => console.log("[NWS] Connected to WS");
     socket.onmessage = (e) => console.log("[NWS] Received Message from Server:", e.data);
     socket.onclose = () => console.log("[NWS] Disconnected from WS");
+    socket.onerror = (e) => console.log("[NWS] WS Error:", e);
     setWS(socket);
 
     return () => {
@@ -45,11 +47,11 @@ export default function App() {
         <CardHeader>
           <CardTitle>daishi</CardTitle>
           <CardDescription>
-            displag any message on daishi &mdash; an 8x8 LED dotmatrix powered by an arduino UNO on <Link href="https://snehasish.xyz" target="_blank" className="underline cursor-pointer">snehasish</Link>&apos;s desk.
+            display any message on daishi &mdash; an 8x8 LED dotmatrix powered by an arduino UNO on <Link href="https://snehasish.xyz" target="_blank" className="underline cursor-pointer">snehasish</Link>&apos;s desk.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <div>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">message *</Label>
@@ -63,7 +65,7 @@ export default function App() {
                 />
               </div>
             </div>
-          </form>
+          </div>
         </CardContent>
         <CardFooter className="flex-col gap-2">
           <Button className="w-full" onClick={send} disabled={!message || message.length > 32}>
