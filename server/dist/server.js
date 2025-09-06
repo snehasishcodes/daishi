@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ws_1 = require("ws");
 const serialport_1 = require("serialport");
-const SERIAL_PATH = "/dev/ttyACM1";
+const SERIAL_PATH = "/dev/ttyACM0";
 const BAUD_RATE = 9600;
 const port = new serialport_1.SerialPort({ path: SERIAL_PATH, baudRate: BAUD_RATE });
 const wss = new ws_1.WebSocketServer({ port: 8080 });
